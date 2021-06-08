@@ -10,4 +10,6 @@ teacherRouter.post('/', teacherController.createTeacher);
 
 teacherRouter.put('/:id', teacherController.updateTeacher);
 
+teacherRouter.delete('/:id', teacherController.deleteTeacher);
+
 module.exports = teacherRouter;

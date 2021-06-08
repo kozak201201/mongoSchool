@@ -42,6 +42,17 @@ const teacherController = {
             console.log(err);
             res.status(404).send(err);
         });
+    },
+    deleteTeacher: function(req, res) {
+        const id = new objectId(req.params.id);
+        const db = require('../app').db;
+        db.collection('teachers').deleteOne({_id: id})
+        .then(result => {
+            result.n ? res.sendStatus(200) : res.sendStatus(404);
+        }).catch(err => {
+            console.log(err);
+            res.status(404).send(err);
+        });
     }
 }
 
