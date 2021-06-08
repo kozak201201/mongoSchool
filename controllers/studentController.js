@@ -1,13 +1,13 @@
 const objectId = require('mongodb').ObjectID;
 
 const studentController = {
-    getAllstudents: function(req, res) {
+    getAllStudents: function(req, res) {
         const db = require('../app').db;
         db.collection('students').find({}).toArray()
         .then(students => res.send(students))
         .catch(err => res.status(404).send(err));
     },
-    getstudent: function(req, res) {
+    getStudent: function(req, res) {
         const id = new objectId(req.params.id);
         console.log(id);
         const db = require('../app').db;
@@ -15,7 +15,7 @@ const studentController = {
         .then(student => student ? res.send(student) : res.sendStatus(404))
         .catch(err => res.status(404).send(err));
     },
-    createstudent: function(req, res) {
+    createStudent: function(req, res) {
         if (isEmpty(req.body)) return res.sendStatus(400);
 
         const {name, surname, age} = req.body;
@@ -28,7 +28,7 @@ const studentController = {
             res.status(404).send(err);
         });
     },
-    updatestudent: function(req, res) {
+    updateStudent: function(req, res) {
         if (isEmpty(req.body)) return res.sendStatus(400);
 
         const id = new objectId(req.params.id);
@@ -43,7 +43,7 @@ const studentController = {
             res.status(404).send(err);
         });
     },
-    deletestudent: function(req, res) {
+    deleteStudent: function(req, res) {
         const id = new objectId(req.params.id);
         const db = require('../app').db;
         db.collection('students').deleteOne({_id: id})
