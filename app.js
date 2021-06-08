@@ -3,6 +3,7 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const jsonParser = express.json();
 const teacherRouter = require('./routers/teacherRouter');
+const studentRouter = require('./routers/studentRouter');
 const url = 'mongodb://localhost:27017/';
 const PORT = process.env.PORT || 3000;
 let db;
@@ -20,3 +21,5 @@ mongoClient.connect().then(client => {
 app.use(jsonParser);
 
 app.use('/teachers', teacherRouter);
+
+app.use('/students', studentRouter);
