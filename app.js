@@ -4,6 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 const jsonParser = express.json();
 const teacherRouter = require('./routers/teacherRouter');
 const studentRouter = require('./routers/studentRouter');
+const courseRouter = require('./routers/courseRouter');
 const url = 'mongodb://localhost:27017/';
 const PORT = process.env.PORT || 3000;
 let db;
@@ -23,3 +24,5 @@ app.use(jsonParser);
 app.use('/teachers', teacherRouter);
 
 app.use('/students', studentRouter);
+
+app.use('/courses', courseRouter);
