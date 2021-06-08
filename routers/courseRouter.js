@@ -2,14 +2,14 @@ const express = require('express');
 const courseRouter = express.Router();
 const courseController = require('../controllers/courseController');
 
-courseRouter.get('/:id', courseController.getStudent);
+courseRouter.get('/:id', courseController.getCourse);
 
-courseRouter.get('/', courseController.getAllStudents);
+courseRouter.get('/', courseController.getAllCourses);
 
-courseRouter.post('/', courseController.createStudent);
+courseRouter.post('/', courseController.createCourse);
 
-courseRouter.put('/:id', courseController.updateStudent);
+courseRouter.put('/:id', courseController.updateCourse);
 
-courseRouter.delete('/:id', courseController.deleteStudent);
+courseRouter.delete('/:id', courseController.deleteCourse);
 
 module.exports = courseRouter;

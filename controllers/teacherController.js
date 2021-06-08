@@ -9,7 +9,6 @@ const teacherController = {
     },
     getTeacher: function(req, res) {
         const id = new objectId(req.params.id);
-        console.log(id);
         const db = require('../app').db;
         db.collection('teachers').findOne({_id: id})
         .then(teacher => teacher ? res.send(teacher) : res.sendStatus(404))
