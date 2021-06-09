@@ -4,6 +4,10 @@ const studentCoursesController = require('../../controllers/studentControllers/s
 
 studentCoursesRouter.get('/', studentCoursesController.getAllStudentCourses);
 
+studentCoursesRouter.get('/:teacherCourseId', studentCoursesController.getStudentCourse);
+
 studentCoursesRouter.post('/', studentCoursesController.joinToCourse);
+
+studentCoursesRouter.delete('/:teacherCourseId', studentCoursesController.leaveFromCourse);
 
 module.exports = studentCoursesRouter;
