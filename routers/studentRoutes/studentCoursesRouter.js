@@ -4,4 +4,6 @@ const studentCoursesController = require('../../controllers/studentControllers/s
 
 studentCoursesRouter.get('/', studentCoursesController.getAllStudentCourses);
 
+studentCoursesRouter.post('/', studentCoursesController.joinToCourse);
+
 module.exports = studentCoursesRouter;

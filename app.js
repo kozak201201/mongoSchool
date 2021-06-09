@@ -15,6 +15,7 @@ mongoClient.connect().then(client => {
     app.listen(3000, console.log(`Server start on ${PORT}`));
     db = client.db('School');
     db.collection('courses').createIndex({name: 1}, {unique: true});
+    db.collection('studentsTeachersCourses').createIndex({studentId: 1, teacherCourseId: 1}, {unique: true});
     db.collection('teachersCourses').createIndex({courseId: 1, teacherId: 1}, {unique: true});
     module.exports.db = db;
 }).catch(err => {
