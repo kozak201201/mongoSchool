@@ -35,7 +35,7 @@ const studentController = {
         const db = require('../app').db;
         db.collection('students').updateOne({_id: id}, { $set:{name, surname, age}})
         .then(result => {
-            result.modifiedCount ? res.sendStatus(200) : res.sendStatus(404);
+            result.matchedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);

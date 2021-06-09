@@ -9,9 +9,10 @@ const teacherCoursesController = {
         .catch(err => res.status(404).send(err));
     },
     getTeacherCourse: function(req, res) {
+        const teacherId = new objectId(req.teacherId);
         const courseId = new objectId(req.params.courseId);
         const db = require('../../app').db;
-        db.collection('teachersCourses').findOne({_id: courseId})
+        db.collection('teachersCourses').findOne({teacherId: teacherId, courseId: courseId})
         .then(teacherCourse => teacherCourse ? res.send(teacherCourse) : res.sendStatus(404))
         .catch(err => res.status(404).send(err));
     },
@@ -20,7 +21,7 @@ const teacherCoursesController = {
         const teacherId = new objectId(req.teacherId);
         const courseId = new objectId(req.body.courseId);
         const db = require('../../app').db;
-        db.collection('teachersCourses').insertOne({teacherId: teacherId, _id: courseId})
+        db.collection('teachersCourses').insertOne({teacherId: teacherId, courseId: courseId})
         .then(result => {
             res.sendStatus(200);
         }).catch(err => {
@@ -36,18 +37,18 @@ const teacherCoursesController = {
         const db = require('../../app').db;
         db.collection('teachersCourses').updateOne({_id: id}, { $set:{_id: courseId}})
         .then(result => {
-            result.modifiedCount ? res.sendStatus(200) : res.sendStatus(404);
+            result.matchedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);
         });
     },
     deleteTeacherCourse: function(req, res) {
-        const id = new objectId(req.params.courseId);
+        const teacherId = new objectId(req.teacherId);
+        const courseId = new objectId(req.params.courseId);
         const db = require('../../app').db;
-        db.collection('teachersCourses').deleteOne({_id: id})
+        db.collection('teachersCourses').deleteOne({teacherId: teacherId, courseId: courseId})
         .then(result => {
-            console.log(result);
             result.deletedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
