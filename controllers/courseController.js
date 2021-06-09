@@ -17,9 +17,9 @@ const courseController = {
     createCourse: function(req, res) {
         if (isEmpty(req.body)) return res.sendStatus(400);
 
-        const {name, surname, age} = req.body;
+        const name = req.body.name;
         const db = require('../app').db;
-        db.collection('courses').insertOne({name, surname, age})
+        db.collection('courses').insertOne({name})
         .then(result => {
             res.sendStatus(200);
         }).catch(err => {
@@ -31,12 +31,11 @@ const courseController = {
         if (isEmpty(req.body)) return res.sendStatus(400);
 
         const id = new objectId(req.params.id);
-        const {name, surname, age} = req.body;
+        const name = req.body.name;
         const db = require('../app').db;
-        db.collection('courses').updateOne({_id: id}, { $set:{name, surname, age}})
+        db.collection('courses').updateOne({_id: id}, { $set:{name: name}})
         .then(result => {
-            if (!result.n) return res.sendStatus(404);
-            res.sendStatus(200);
+            result.modifiedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);
@@ -47,7 +46,7 @@ const courseController = {
         const db = require('../app').db;
         db.collection('courses').deleteOne({_id: id})
         .then(result => {
-            result.n ? res.sendStatus(200) : res.sendStatus(404);
+            result.deletedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);

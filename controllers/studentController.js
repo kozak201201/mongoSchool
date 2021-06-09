@@ -35,8 +35,7 @@ const studentController = {
         const db = require('../app').db;
         db.collection('students').updateOne({_id: id}, { $set:{name, surname, age}})
         .then(result => {
-            if (!result.n) return res.sendStatus(404);
-            res.sendStatus(200);
+            result.modifiedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);
@@ -47,7 +46,7 @@ const studentController = {
         const db = require('../app').db;
         db.collection('students').deleteOne({_id: id})
         .then(result => {
-            result.n ? res.sendStatus(200) : res.sendStatus(404);
+            result.deletedCount ? res.sendStatus(200) : res.sendStatus(404);
         }).catch(err => {
             console.log(err);
             res.status(404).send(err);

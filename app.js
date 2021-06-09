@@ -14,6 +14,8 @@ const mongoClient = new MongoClient(url, {useUnifiedTopology: true});
 mongoClient.connect().then(client => {
     app.listen(3000, console.log(`Server start on ${PORT}`));
     db = client.db('School');
+    db.collection('courses').createIndex({name: 1}, {unique: true});
+    db.collection('teachersCourses').createIndex({_id: 1, teacherId: 1}, {unique: true});
     module.exports.db = db;
 }).catch(err => {
     console.log(err);
